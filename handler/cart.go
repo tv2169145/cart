@@ -6,6 +6,7 @@ import (
 	"github.com/tv2169145/cart/domain/service"
 	cart "github.com/tv2169145/cart/proto/cart"
 	"github.com/tv2169145/common"
+	"log"
 )
 
 type Cart struct {
@@ -75,6 +76,7 @@ func (cartHandler *Cart) DeleteItemByID(ctx context.Context, request *cart.CartI
 
 // 取得某user的所有購物車項目
 func (cartHandler *Cart) GetAll(ctx context.Context, request *cart.CartFindAll, response *cart.CartAll) error {
+	log.Println("get request here", request.UserId)
 	carts, err := cartHandler.CartDateService.FindAllCart(request.UserId)
 	if err != nil {
 		return err

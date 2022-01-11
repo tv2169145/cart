@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/jinzhu/gorm"
 	"github.com/tv2169145/cart/domain/model"
+	"log"
 )
 
 type ICartRepository interface {
@@ -63,7 +64,8 @@ func (repo *CartRepository) UpdateCart(cart *model.Cart) error {
 }
 
 func (repo *CartRepository) FindAll(userId int64) (cartAll []model.Cart, err error) {
-	return cartAll, repo.mysqlDb.Where("user_id=?", userId).Find(cartAll).Error
+	log.Println("repository@FindAll userId=", userId)
+	return cartAll, repo.mysqlDb.Where("user_id=?", userId).Find(&cartAll).Error
 }
 
 func (repo *CartRepository) CleanCart(userId int64) error {
